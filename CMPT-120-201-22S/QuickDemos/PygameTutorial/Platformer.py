@@ -77,6 +77,8 @@ while True:
  
     pygame.display.update()
     FramePerSec.tick(FPS)
-
-    
+ 
+ 
+PT1 = platform()
+P1 = Player()
 
