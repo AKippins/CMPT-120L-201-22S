@@ -3,6 +3,7 @@ from pygame.locals import *
 import time
 import sys
 import random
+# All of the imported LIbaries 
 
 
 pygame.init()
@@ -17,12 +18,12 @@ FPS = 60
 FramePerSec = pygame.time.Clock()
 
 displaysurface = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("FlappyBird")
+pygame.display.set_caption("NICKS PLATFORMER")
 
 
 
 
-
+# This is my player class
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__() 
@@ -35,7 +36,7 @@ class Player(pygame.sprite.Sprite):
         self.acc = vec(0,5)
         self.score = 0 # Shows the score 
     
-    
+    # This helps the player move from left to right 
     def move(self):
         self.acc = vec(0,0.5)
 
@@ -53,14 +54,14 @@ class Player(pygame.sprite.Sprite):
         
         self.rect.midbottom = self.pos 
 
-
+    # This helps the player jump
     def jump(self):
         hits = pygame.sprite.spritecollide(self, platforms, False)
         if hits:
             self.vel.y = -15
             
 
-
+    # This updated the player and the platform when they collide 
     def update(self):
         hits = pygame.sprite.spritecollide(self ,platforms, False)
         if self.vel.y > 0:        
@@ -71,7 +72,7 @@ class Player(pygame.sprite.Sprite):
                     self.vel.y = 0
                     self.jumping = False
 
-
+# THis is the platform class for all the platforms 
 class platform(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -87,7 +88,7 @@ class platform(pygame.sprite.Sprite):
         pass
 
 
-
+# This is how the platforms are able to have random spawns 
 def plat_gen():
     while len(platforms) < 10 :
         width = random.randrange(50,100)
@@ -98,7 +99,7 @@ def plat_gen():
 
 
 
-
+# This checks if the platform is in range of the borders of the display 
 def check(platform, groupies):
     if pygame.sprite.spritecollideany(platform,groupies):
         return True
@@ -114,6 +115,7 @@ def check(platform, groupies):
 PT1 = platform()
 P1 = Player()
 
+
 PT1.surf = pygame.Surface((WIDTH, 20))
 PT1.surf.fill((255,255,255))
 PT1.rect = PT1.surf.get_rect(center = (WIDTH/2, HEIGHT- 10))
@@ -128,13 +130,13 @@ platforms.add(PT1)
 PT1.moving = False
 PT1.point = False
 
-
+# THis also randomizes the platforms 
 for x  in range(random.randint(8, 9)):
     pl = platform()
     platforms.add(pl)
     all_sprites.add(pl)
 
-
+# This is the game loop for the game 
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
